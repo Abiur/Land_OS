@@ -1,0 +1,107 @@
+{
+  "image_file": "doc_095.jpg",
+  "document_id": "DOC-SYN-0095",
+  "record_ref": "REC-MOUZA-০১-4078-1128",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 54,
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কাওরান বাজার",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০১",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "4078",
+      "raw": "4078",
+      "main_no": 4078,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "1128",
+      "raw": "1128",
+      "main_no": 1128,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মতিউর রহমান",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পতিত",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "13.15",
+      "raw": 13.15,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/4078"
+    }
+  }
+}

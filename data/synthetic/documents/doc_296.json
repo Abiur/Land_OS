@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_296.jpg",
+  "document_id": "DOC-SYN-0296",
+  "record_ref": "REC-MOUZA-০২-5219-5778",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 41,
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "আম্বরখানা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৫২১৯",
+      "raw": "5219",
+      "main_no": 5219,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৫৭৭৮",
+      "raw": "5778",
+      "main_no": 5778,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "সিরাজুল ইসলাম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাড়ি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৪২.৭২",
+      "raw": 42.72,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

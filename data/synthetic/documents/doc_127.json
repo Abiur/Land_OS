@@ -1,0 +1,108 @@
+{
+  "image_file": "doc_127.jpg",
+  "document_id": "DOC-SYN-0127",
+  "record_ref": "REC-MOUZA-১৭-3699-2829",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 57,
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "কংশনগর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "3699",
+      "raw": "3699",
+      "main_no": 3699,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "2829",
+      "raw": "2829",
+      "main_no": 2829,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "বদরুল আলম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "82.25",
+      "raw": 82.25,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/3699"
+    }
+  }
+}

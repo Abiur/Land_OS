@@ -1,0 +1,103 @@
+{
+  "image_file": "doc_041.jpg",
+  "document_id": "DOC-SYN-0041",
+  "record_ref": "REC-MOUZA-০৮-7017-1303",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "ascii",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 94,
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "মহাখালী",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৮",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "7017",
+      "raw": "7017",
+      "main_no": 7017,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "1303",
+      "raw": "1303",
+      "main_no": 1303,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আজহারুল ইসলাম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "পুকুর",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "57.41",
+      "raw": 57.41,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/7017"
+    }
+  }
+}

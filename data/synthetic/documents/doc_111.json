@@ -1,0 +1,108 @@
+{
+  "image_file": "doc_111.jpg",
+  "document_id": "DOC-SYN-0111",
+  "record_ref": "REC-MOUZA-১১-3185-1927",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "glare",
+    "jpeg"
+  ],
+  "jpeg_quality": 40,
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সালনা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১১",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৩১৮৫",
+      "raw": "3185",
+      "main_no": 3185,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১৯২৭",
+      "raw": "1927",
+      "main_no": 1927,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "ফাতেমা বেগম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৮০.৬৮",
+      "raw": 80.68,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/3185"
+    }
+  }
+}

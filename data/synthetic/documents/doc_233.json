@@ -1,0 +1,100 @@
+{
+  "image_file": "doc_233.jpg",
+  "document_id": "DOC-SYN-0233",
+  "record_ref": "REC-MOUZA-১০-5704-3639",
+  "font_used": "Nirmala",
+  "digit_mode": "ascii",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "motion blur",
+    "jpeg"
+  ],
+  "jpeg_quality": 58,
+  "fields": {
+    "survey_type": {
+      "value": "BS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "পানাম নগর",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১০",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "5704",
+      "raw": "5704",
+      "main_no": 5704,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "3639",
+      "raw": "3639",
+      "main_no": 3639,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আবুল কাশেম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "5.75",
+      "raw": 5.75,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

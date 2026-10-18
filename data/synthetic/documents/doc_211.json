@@ -1,0 +1,107 @@
+{
+  "image_file": "doc_211.jpg",
+  "document_id": "DOC-SYN-0211",
+  "record_ref": "REC-MOUZA-৪২-564-4495",
+  "font_used": "Nirmala",
+  "digit_mode": "mixed",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 64,
+  "fields": {
+    "survey_type": {
+      "value": "City Survey",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "আশুলিয়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৪২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৫6৪",
+      "raw": "564",
+      "main_no": 564,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৪4৯5",
+      "raw": "4495",
+      "main_no": 4495,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "বদরুল আলম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "নাল",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "২8.7৮",
+      "raw": 28.78,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/564"
+    }
+  }
+}

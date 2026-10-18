@@ -1,0 +1,107 @@
+{
+  "image_file": "doc_015.jpg",
+  "document_id": "DOC-SYN-0015",
+  "record_ref": "REC-MOUZA-১৮-2292-955",
+  "font_used": "HindSiliguri-Regular",
+  "digit_mode": "mixed",
+  "quality_tier": "BAD",
+  "quality_gate_passed": false,
+  "degradation": [
+    "dark",
+    "perspective",
+    "shadow",
+    "rotation",
+    "jpeg"
+  ],
+  "jpeg_quality": 31,
+  "fields": {
+    "survey_type": {
+      "value": "SA",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "পাইকপাড়া",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "১৮",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "২2৯2",
+      "raw": "2292",
+      "main_no": 2292,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৯5৫/৫",
+      "raw": "955/5",
+      "main_no": 955,
+      "sub_no": 5,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "মরিয়ম নেসা",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৫0.1৮",
+      "raw": 50.18,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    },
+    "qr_code": {
+      "bbox": [
+        690,
+        830,
+        801,
+        941
+      ],
+      "payload": "khatian/2292"
+    }
+  }
+}

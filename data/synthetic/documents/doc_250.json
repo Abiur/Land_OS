@@ -1,0 +1,99 @@
+{
+  "image_file": "doc_250.jpg",
+  "document_id": "DOC-SYN-0250",
+  "record_ref": "REC-MOUZA-০২-1296-7287",
+  "font_used": "NotoSansBengali-Regular",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "perspective",
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 68,
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সিদ্ধিরগঞ্জ",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "১২৯৬",
+      "raw": "1296",
+      "main_no": 1296,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৭২৮৭",
+      "raw": "7287",
+      "main_no": 7287,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "সিরাজুল ইসলাম",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "দোকান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৪০.৮৩",
+      "raw": 40.83,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

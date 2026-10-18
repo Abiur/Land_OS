@@ -1,0 +1,98 @@
+{
+  "image_file": "doc_218.jpg",
+  "document_id": "DOC-SYN-0218",
+  "record_ref": "REC-MOUZA-৩২-3684-1132",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "MEDIUM",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation",
+    "blur",
+    "shadow",
+    "noise",
+    "jpeg"
+  ],
+  "jpeg_quality": 59,
+  "fields": {
+    "survey_type": {
+      "value": "RS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "সুলতানগঞ্জ",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "৩২",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৩৬৮৪",
+      "raw": "3684",
+      "main_no": 3684,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "১১৩২",
+      "raw": "1132",
+      "main_no": 1132,
+      "sub_no": null,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "গোলাম কিবরিয়া",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাড়ি",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৬০.৪২",
+      "raw": 60.42,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

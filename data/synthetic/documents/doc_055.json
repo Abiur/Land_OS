@@ -1,0 +1,94 @@
+{
+  "image_file": "doc_055.jpg",
+  "document_id": "DOC-SYN-0055",
+  "record_ref": "REC-MOUZA-০৭-4991-8666",
+  "font_used": "Nirmala",
+  "digit_mode": "bangla",
+  "quality_tier": "GOOD",
+  "quality_gate_passed": true,
+  "degradation": [
+    "rotation"
+  ],
+  "jpeg_quality": 87,
+  "fields": {
+    "survey_type": {
+      "value": "CS",
+      "bbox": [
+        370,
+        105,
+        520,
+        130
+      ]
+    },
+    "mouza": {
+      "value": "চান্দনা",
+      "bbox": [
+        580,
+        155,
+        830,
+        180
+      ]
+    },
+    "jl_no": {
+      "value": "০৭",
+      "bbox": [
+        760,
+        155,
+        840,
+        180
+      ]
+    },
+    "khatian_no": {
+      "value": "৪৯৯১",
+      "raw": "4991",
+      "main_no": 4991,
+      "sub_no": null,
+      "bbox": [
+        220,
+        212,
+        380,
+        245
+      ]
+    },
+    "dag_no": {
+      "value": "৮৬৬৬/৮",
+      "raw": "8666/8",
+      "main_no": 8666,
+      "sub_no": 8,
+      "bbox": [
+        620,
+        212,
+        780,
+        245
+      ]
+    },
+    "owner_name": {
+      "value": "আখতারুজ্জামান",
+      "bbox": [
+        180,
+        375,
+        460,
+        400
+      ]
+    },
+    "land_class": {
+      "value": "বাগান",
+      "bbox": [
+        500,
+        375,
+        630,
+        400
+      ]
+    },
+    "area_decimal": {
+      "value": "৬৫.৫২",
+      "raw": 65.52,
+      "bbox": [
+        710,
+        375,
+        820,
+        400
+      ]
+    }
+  }
+}

@@ -1,0 +1,385 @@
+/**
+ * Client-side Identifier & Mouza Normalization Engine for Bangladesh LandOS.
+ * Mirrors backend/app/core/normalize.py and validates against shared test vectors.
+ *
+ * Pipeline:
+ * 1. Unicode NFC; strip zero-width chars (U+200B, U+200C, U+200D, U+FEFF); NBSP -> space.
+ * 2. Strip label prefixes (e.g., দাগ নং, Dag:, etc.).
+ * 3. Map Bangla digits U+09E6..U+09EF to ASCII 0-9.
+ * 4. Strip ALL whitespace inside numeric identifiers; unify separators ( / \ - . | । ) to "/".
+ * 5. OCR confusable repair (O/o->0, l/I/|/।->1, S->5, B->8) with repaired flag & confidence penalty.
+ * 6. Strip leading zeros per numeric part.
+ * 7. Validate with regex (defaults: dag_no, khatian_no, document_no).
+ * 8. Output ParsedIdentifier / NormalizedId.
+ */
+
+export interface ParsedIdentifier {
+  rawValue: string;
+  normalizedValue: string | null;
+  mainNo: number | null;
+  subNo: number | null;
+  isValid: boolean;
+  repaired?: boolean;
+  confidence?: number;
+  status?: 'valid' | 'repaired' | 'invalid';
+  flagged?: boolean;
+  flagReason?: string | null;
+}
+
+export type NormalizedId = ParsedIdentifier;
+
+const ZERO_WIDTH_REGEX = /(?:\u200B|\u200C|\u200D|\uFEFF)/g;
+
+const BANGLA_DIGIT_MAP: Record<string, string> = {
+  '০': '0',
+  '১': '1',
+  '২': '2',
+  '৩': '3',
+  '৪': '4',
+  '৫': '5',
+  '৬': '6',
+  '৭': '7',
+  '৮': '8',
+  '৯': '9',
+};
+
+const SEPARATOR_REGEX = /[/\\.\-—|।]+/g;
+
+const PREFIX_REGEX =
+  /^(?:দাগ\s*নং|খতিয়ান\s*নং|খতিয়ান\s*নং|দলিল\s*নং|দাগ|খতিয়ান|খতিয়ান|দলিল|dag\s*no\.?|dag:|dag|khatian\s*no\.?|khatian:|khatian|নং[:\-\s]*|no\.?[:\s]*)\s*[:\-.]*\s*/i;
+
+const CONFUSABLE_MAP: Record<string, string> = {
+  O: '0',
+  o: '0',
+  l: '1',
+  I: '1',
+  '|': '1',
+  '।': '1',
+  S: '5',
+  s: '5',
+  B: '8',
+  Z: '2',
+  z: '2',
+};
+
+const PATTERNS: Record<string, RegExp> = {
+  dag_no: /^(?<main>\d{1,5})(?:\/(?<sub>\d{1,4}))?$/,
+  khatian_no: /^(?<main>\d{1,6})(?:\/(?<sub>\d{1,3}))?$/,
+  document_no: /^(?<main>\d{1,7})(?:\/(?<sub>\d{1,4}))?$/,
+};
+
+export function normalizeIdentifier(
+  raw: string,
+  patternType: 'dag_no' | 'khatian_no' | 'document_no' = 'dag_no',
+  mouzaMaxNo?: number,
+  baseConfidence: number = 1.0
+): ParsedIdentifier {
+  if (raw === null || raw === undefined || !String(raw).trim()) {
+    return {
+      rawValue: raw ?? '',
+      normalizedValue: null,
+      mainNo: null,
+      subNo: null,
+      isValid: false,
+      repaired: false,
+      confidence: 0,
+      status: 'invalid',
+      flagged: true,
+      flagReason: 'EMPTY_INPUT',
+    };
+  }
+
+  // 1. Unicode NFC; strip zero-width chars; NBSP -> space
+  let text = String(raw).normalize('NFC').replace(ZERO_WIDTH_REGEX, '').replace(/\u00A0/g, ' ').trim();
+
+  if (!text) {
+    return {
+      rawValue: raw,
+      normalizedValue: null,
+      mainNo: null,
+      subNo: null,
+      isValid: false,
+      repaired: false,
+      confidence: 0,
+      status: 'invalid',
+      flagged: true,
+      flagReason: 'EMPTY_INPUT',
+    };
+  }
+
+  // Strip prefix labels
+  text = text.replace(PREFIX_REGEX, '').trim();
+
+  // 2. Map Bangla digits U+09E6..U+09EF to ASCII 0-9
+  text = text.replace(/[০-৯]/g, (ch) => BANGLA_DIGIT_MAP[ch] || ch);
+
+  // 3. Unify separators ( / \ - . | । ) to "/" and strip ALL whitespace inside
+  text = text.replace(SEPARATOR_REGEX, '/').replace(/\s+/g, '');
+
+  // Strip trailing slash
+  if (text.endsWith('/')) {
+    text = text.slice(0, -1);
+  }
+
+  if (!text || text === '/') {
+    return {
+      rawValue: raw,
+      normalizedValue: null,
+      mainNo: null,
+      subNo: null,
+      isValid: false,
+      repaired: false,
+      confidence: 0,
+      status: 'invalid',
+      flagged: true,
+      flagReason: 'INVALID_FORMAT',
+    };
+  }
+
+  // 4. OCR confusable repair ONLY where digits are expected
+  let repaired = false;
+  let repairedChars = 0;
+  const cleanChars: string[] = [];
+
+  for (const char of text) {
+    if (/[0-9/]/.test(char)) {
+      cleanChars.push(char);
+    } else if (CONFUSABLE_MAP[char] !== undefined) {
+      cleanChars.push(CONFUSABLE_MAP[char]);
+      repaired = true;
+      repairedChars += 1;
+    } else {
+      cleanChars.push(char);
+    }
+  }
+
+  text = cleanChars.join('');
+
+  // 5. Strip leading zeros per numeric part
+  const parts = text.split('/');
+  if (parts.length > 2) {
+    return {
+      rawValue: raw,
+      normalizedValue: null,
+      mainNo: null,
+      subNo: null,
+      isValid: false,
+      repaired,
+      confidence: 0,
+      status: 'invalid',
+      flagged: true,
+      flagReason: 'TOO_MANY_PARTS',
+    };
+  }
+
+  const strippedParts = parts.map((p) => {
+    if (/^\d+$/.test(p)) {
+      const stripped = p.replace(/^0+/, '');
+      return stripped.length > 0 ? stripped : '0';
+    }
+    return p;
+  });
+
+  const normalizedCandidate = strippedParts.join('/');
+
+  // 6. Validate with regex
+  const regex = PATTERNS[patternType] || PATTERNS.dag_no;
+  const match = normalizedCandidate.match(regex);
+
+  if (!match) {
+    return {
+      rawValue: raw,
+      normalizedValue: null,
+      mainNo: null,
+      subNo: null,
+      isValid: false,
+      repaired,
+      confidence: 0,
+      status: 'invalid',
+      flagged: true,
+      flagReason: 'REGEX_MISMATCH',
+    };
+  }
+
+  const mainVal = parseInt(match.groups?.main || match[1], 10);
+  const subVal = match.groups?.sub ? parseInt(match.groups.sub, 10) : null;
+  const canonical = subVal !== null ? `${mainVal}/${subVal}` : `${mainVal}`;
+
+  // 7. Plausibility check
+  let flagged = false;
+  let flagReason: string | null = null;
+  if (mainVal < 1 || mainVal > 99999 || (mouzaMaxNo && mainVal > mouzaMaxNo)) {
+    flagged = true;
+    flagReason = 'implausible';
+  }
+
+  // Confidence computation
+  let confidence = baseConfidence;
+  if (repaired) {
+    confidence = Math.max(0.5, confidence - 0.15 * repairedChars);
+  }
+
+  const status = repaired ? 'repaired' : 'valid';
+
+  if (status !== 'valid' || repaired || confidence < 0.8) {
+    flagged = true;
+    if (!flagReason) {
+      flagReason = 'LOW_CONFIDENCE_OR_REPAIRED';
+    }
+  }
+
+  return {
+    rawValue: raw,
+    normalizedValue: canonical,
+    mainNo: mainVal,
+    subNo: subVal,
+    isValid: true,
+    repaired,
+    confidence: Math.round(confidence * 100) / 100,
+    status,
+    flagged,
+    flagReason,
+  };
+}
+
+// -----------------------------------------------------------------------------
+// Voice Assistant & Spoken Numerals Parser (P6 "Parcel Guardian")
+// -----------------------------------------------------------------------------
+
+const SPOKEN_NUMERALS: Record<string, string> = {
+  'শূন্য': '0',
+  'এক': '1',
+  'দুই': '2',
+  'তিন': '3',
+  'চার': '4',
+  'পাঁচ': '5',
+  'ছয়': '6',
+  'ছয়': '6',
+  'সাত': '7',
+  'আট': '8',
+  'নয়': '9',
+  'নয়': '9',
+  'দশ': '10',
+};
+
+export function normalizeSpokenBengali(text: string): string {
+  if (!text) return '';
+  let result = text.normalize('NFC').replace(ZERO_WIDTH_REGEX, '').trim();
+
+  // Replace spoken number words when isolated or spaced
+  for (const [word, digit] of Object.entries(SPOKEN_NUMERALS)) {
+    const wordRegex = new RegExp(`(?:^|\\s)${word}(?=\\s|$)`, 'gi');
+    result = result.replace(wordRegex, (match) => match.replace(word, digit));
+  }
+
+  // Replace Bengali digits with ASCII digits
+  for (const [bDigit, aDigit] of Object.entries(BANGLA_DIGIT_MAP)) {
+    result = result.replace(new RegExp(bDigit, 'g'), aDigit);
+  }
+
+  return result;
+}
+
+export interface VoiceCommandIntent {
+  intent: 'search_record' | 'buyer_report' | 'namjari_track' | 'parcel_watch' | 'general_query';
+  parcelId?: string;
+  trackingCode?: string;
+  khatianNo?: string;
+  dagNo?: string;
+  mouza?: string;
+  normalizedQuery: string;
+}
+
+export function parseVoiceCommand(transcript: string): VoiceCommandIntent {
+  const normalized = normalizeSpokenBengali(transcript);
+  const lower = normalized.toLowerCase();
+
+  // 1. Check for Parcel Watch (checked before generic parcel terms)
+  if (
+    lower.includes('গার্ডিয়ান') ||
+    lower.includes('গার্ডিয়ান') ||
+    lower.includes('ওয়াচ') ||
+    lower.includes('ওয়াচ') ||
+    lower.includes('watch') ||
+    lower.includes('guardian')
+  ) {
+    const pMatch = normalized.match(/(?:p[-\s]?)?(\d{3,5}|clean[-\s]?\d+|khas[-\s]?\d+|lit[-\s]?\d+)/i);
+    const parcelId = pMatch ? (pMatch[1].toUpperCase().startsWith('P-') ? pMatch[1].toUpperCase() : `P-${pMatch[1].toUpperCase()}`) : 'P-4520';
+    return {
+      intent: 'parcel_watch',
+      parcelId,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 2. Check for Buyer Report / Pre-purchase check
+  if (
+    lower.includes('কেনার আগে') ||
+    lower.includes('ক্রেতা রিপোর্ট') ||
+    lower.includes('পূর্ব-যাচাই') ||
+    lower.includes('পূর্ব যাচাই') ||
+    lower.includes('buyer report') ||
+    lower.includes('check parcel') ||
+    lower.includes('যাচাই কর')
+  ) {
+    const pMatch = normalized.match(/(?:p[-\s]?)?(\d{3,5}|clean[-\s]?\d+|khas[-\s]?\d+|lit[-\s]?\d+)/i);
+    let parcelId: string | undefined;
+    if (pMatch) {
+      const rawId = pMatch[1].toUpperCase().replace(/\s+/g, '-');
+      parcelId = rawId.startsWith('P-') ? rawId : `P-${rawId}`;
+    } else {
+      parcelId = 'P-4520';
+    }
+    return {
+      intent: 'buyer_report',
+      parcelId,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 2. Check for Namjari Tracking
+  if (
+    lower.includes('নামজারি') ||
+    lower.includes('ট্র্যাকিং') ||
+    lower.includes('ট্র্যাক') ||
+    lower.includes('namjari') ||
+    lower.includes('tracking') ||
+    lower.includes('nj-')
+  ) {
+    const njMatch = normalized.match(/nj[-\s]?(\d{4}[-\s]?\d{3,4})|\b(\d{4})\b/i);
+    let trackingCode = 'NJ-2026-1001';
+    if (njMatch) {
+      if (njMatch[1]) {
+        trackingCode = `NJ-${njMatch[1].replace(/\s+/g, '-')}`;
+      } else if (njMatch[2]) {
+        trackingCode = `NJ-2026-${njMatch[2]}`;
+      }
+    }
+    return {
+      intent: 'namjari_track',
+      trackingCode,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 4. Check for Record Search (dag, khatian)
+  const dagMatch = normalized.match(/(?:দাগ|dag)\s*(?:নম্বর|নং|no\.?)?\s*[:\-.]*\s*(\d+)/i);
+  const khatianMatch = normalized.match(/(?:খতিয়ান|খতিয়ান|khatian)\s*(?:নম্বর|নং|no\.?)?\s*[:\-.]*\s*(\d+)/i);
+
+  if (dagMatch || khatianMatch) {
+    const dagNo = dagMatch ? dagMatch[1] : undefined;
+    const khatianNo = khatianMatch ? khatianMatch[1] : undefined;
+    return {
+      intent: 'search_record',
+      dagNo,
+      khatianNo,
+      normalizedQuery: normalized,
+    };
+  }
+
+  // 5. Default: General inquiry
+  return {
+    intent: 'general_query',
+    normalizedQuery: normalized,
+  };
+}

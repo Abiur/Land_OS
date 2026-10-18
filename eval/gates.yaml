@@ -1,0 +1,23 @@
+# Bangladesh LandOS — ML & Document Intelligence Quality Gates
+# Evaluated against test benchmark. Fails eval pipeline if any set threshold is breached.
+
+gates:
+  dag_no:
+    fea: 0.95               # Field Extraction Accuracy (FEA) minimum threshold
+    silent_error_rate: 0.02  # Maximum acceptable silent error rate (2%)
+  khatian_no:
+    fea: 0.95
+    silent_error_rate: 0.02
+  party_names:
+    fea: 0.90               # Name normalization FEA
+  area:
+    fea: 0.90               # Area extraction & conversion FEA
+  overall:
+    cer: 0.05               # Character Error Rate maximum threshold (5%)
+    wer: 0.10               # Word Error Rate maximum threshold (10%)
+    flag_recall: 0.90       # Quality gate flag recall threshold
+  verification:
+    comparison_accuracy: 0.95  # Cross-record comparison accuracy
+  risk_rules:
+    min_precision: 0.85     # Minimum precision across R1 to R6
+    min_recall: 0.85        # Minimum recall across R1 to R6
